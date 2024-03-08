@@ -28,8 +28,11 @@ export class TodoListDashboardComponent {
 
   addTask() {
     let value = this.newTitle;
-    this.todoListService.createToDoItem({title: value});
-    this.toDoItemResponses.push({title: this.newTitle, id: '2', isComplete: false})
+    this.todoListService.createToDoItem({title: value}).subscribe((response: IToDoItemResponse) => {
+      this.toDoItemResponses.push(response);
+    }, (error: any) => {
+      alert('Error creating todo item');
+    });
     this.newTitle = '';
   }
 

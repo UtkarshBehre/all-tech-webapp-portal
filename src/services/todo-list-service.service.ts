@@ -16,8 +16,8 @@ export class TodoListServiceService {
     this.config = environment.services_todo_config;
   }
 
-  createToDoItem(toDoItemCreateRequest: IToDoItemCreateRequest) {
-    return this.httpClient.post(`${this.config.endpoint_base_url}${this.config.endpoint_create}`, toDoItemCreateRequest);
+  createToDoItem(toDoItemCreateRequest: IToDoItemCreateRequest): Observable<IToDoItemResponse> {
+    return this.httpClient.post<IToDoItemResponse>(`${this.config.endpoint_base_url}${this.config.endpoint_create}`, toDoItemCreateRequest);
   }
 
   getAllToDoItems(): Observable<IToDoItemResponse[]> {
