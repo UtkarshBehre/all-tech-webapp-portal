@@ -21,13 +21,14 @@ export class TodoListItemComponent {
     this.toDoItemResponseOriginal = { ...this.toDoItemResponse };
   }
 
-  onInput() {
+  onInput(event: any) {
     this.todoListService.updateToDoItem(this.toDoItemResponse).subscribe((response: any) => {
       
     }, (error: any) => {
       alert('Error updating todo item');
     });
     this.toDoItemResponseOriginal = { ...this.toDoItemResponse };
+    event.target.blur();
   }
 
   onBlur(){
