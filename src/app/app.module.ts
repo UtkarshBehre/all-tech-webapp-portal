@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodoListDashboardComponent } from './todo-list-dashboard/todo-list-dashboard.component';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { TodoListItemComponent } from './shared/views/todo-list-item/todo-list-item.component';
 import { TopNavbarComponent } from './shared/views/top-navbar/top-navbar.component';
 
