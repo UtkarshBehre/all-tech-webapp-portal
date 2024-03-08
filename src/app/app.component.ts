@@ -12,9 +12,6 @@ export class AppComponent {
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit() {
-    this.weatherService.getWeather().subscribe((data) => {
-      console.log(data);
-    });
   }
 
 }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { TodoListDashboardComponent } from './todo-list-dashboard/todo-list-dashboard.component';
 import { TodoListItemComponent } from './shared/views/todo-list-item/todo-list-item.component';
 import { TopNavbarComponent } from './shared/views/top-navbar/top-navbar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,9 @@ import { TopNavbarComponent } from './shared/views/top-navbar/top-navbar.compone
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
