@@ -9,18 +9,10 @@ import { TodoListServiceService } from '../../services/todo-list-service.service
 })
 export class TodoListDashboardComponent {
 
-  toDoItemResponse: IToDoItemResponse;
   toDoItemResponses: IToDoItemResponse[] = [];
   newTitle: string = '';
 
   constructor(private todoListService: TodoListServiceService) {
-    this.toDoItemResponse = {
-      title: 'Test',
-      id: '1',
-      isComplete: false
-    };
-    this.toDoItemResponses.push(this.toDoItemResponse);
-
     this.todoListService.getAllToDoItems().subscribe((response: any) => {
       this.toDoItemResponses = response;
     });
@@ -37,7 +29,7 @@ export class TodoListDashboardComponent {
   }
 
   onDelete(id: string) {
-    this.todoListService.deleteToDoItem(this.toDoItemResponse.id).subscribe((response: boolean) => {
+    this.todoListService.deleteToDoItem(id).subscribe((response: boolean) => {
       this.toDoItemResponses = this.toDoItemResponses.filter((item: IToDoItemResponse) => item.id !== id)
     }, (error: any) => {
       alert('Error deleting todo item');
