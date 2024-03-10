@@ -1,5 +1,6 @@
 <div class="container">
     <h1 class="my-4">Todo List</h1>
+    <app-google-sign-in></app-google-sign-in>
     <div class="card">
         <ul class="list-group list-group-flush">
             <app-todo-list-item [toDoItemResponse]="toDoItemResponse" *ngFor="let toDoItemResponse of toDoItemResponses" (onItemDelete)="onDelete($event)"></app-todo-list-item>
