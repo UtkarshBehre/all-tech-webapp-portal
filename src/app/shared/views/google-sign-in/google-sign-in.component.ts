@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './google-sign-in.component.scss'
 })
 export class GoogleSignInComponent {
+  loginForm!: FormGroup;
   socialUser!: SocialUser;
   isLoggedin?: boolean;
   constructor(
@@ -15,6 +16,10 @@ export class GoogleSignInComponent {
     private socialAuthService: SocialAuthService
   ) {}
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
     console.log("calling auth service now!");
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
