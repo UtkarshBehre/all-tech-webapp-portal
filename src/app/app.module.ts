@@ -9,6 +9,7 @@ import { TopNavbarComponent } from './shared/views/top-navbar/top-navbar.compone
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { GoogleSignInComponent } from './shared/views/google-sign-in/google-sign-in.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,15 @@ import { GoogleSignInComponent } from './shared/views/google-sign-in/google-sign
     FormsModule,
     ReactiveFormsModule,
     SocialLoginModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    
   ],
   providers: [
+    CookieService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: false,
+        autoLogin: true,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
