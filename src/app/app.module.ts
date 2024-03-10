@@ -3,13 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TodoListDashboardComponent } from './todo-list-dashboard/todo-list-dashboard.component';
+import { TodoListDashboardComponent } from './dashboards/todo-list-dashboard/todo-list-dashboard.component';
 import { TodoListItemComponent } from './shared/views/todo-list-item/todo-list-item.component';
 import { TopNavbarComponent } from './shared/views/top-navbar/top-navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
-import { GoogleSignInComponent } from './shared/views/google-sign-in/google-sign-in.component';
 import { CookieService } from 'ngx-cookie-service';
+import { LandingPageComponent } from './dashboards/landing-page/landing-page.component';
+import { PageNotFoundComponent } from './dashboards/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CookieService } from 'ngx-cookie-service';
     TodoListDashboardComponent,
     TodoListItemComponent,
     TopNavbarComponent,
-    GoogleSignInComponent,
+    LandingPageComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,7 @@ import { CookieService } from 'ngx-cookie-service';
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: true,
+        autoLogin: false,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
