@@ -11,6 +11,8 @@ import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig,
 import { CookieService } from 'ngx-cookie-service';
 import { LandingPageComponent } from './dashboards/landing-page/landing-page.component';
 import { PageNotFoundComponent } from './dashboards/page-not-found/page-not-found.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import { PageNotFoundComponent } from './dashboards/page-not-found/page-not-foun
     ReactiveFormsModule,
     SocialLoginModule,
     GoogleSigninButtonModule,
-    
+    MatIconModule
   ],
   providers: [
     CookieService,
@@ -45,6 +47,7 @@ import { PageNotFoundComponent } from './dashboards/page-not-found/page-not-foun
         ],
       } as SocialAuthServiceConfig,
     },
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })
