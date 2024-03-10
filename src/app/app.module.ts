@@ -7,7 +7,7 @@ import { TodoListDashboardComponent } from './todo-list-dashboard/todo-list-dash
 import { TodoListItemComponent } from './shared/views/todo-list-item/todo-list-item.component';
 import { TopNavbarComponent } from './shared/views/top-navbar/top-navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { GoogleSignInComponent } from './shared/views/google-sign-in/google-sign-in.component';
 
 @NgModule({
@@ -24,7 +24,8 @@ import { GoogleSignInComponent } from './shared/views/google-sign-in/google-sign
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    GoogleSigninButtonModule
   ],
   providers: [
     {
