@@ -36,7 +36,7 @@ export class TodoListItemComponent {
   }
 
   onComplete() {
-    this.toDoItemResponse.isComplete = true;
+    this.toDoItemResponse.isComplete = !this.toDoItemResponse.isComplete;
     this.todoListService.updateToDoItem(this.toDoItemResponse).subscribe((response: IToDoItemResponse) => {
       
     }, (error: any) => {

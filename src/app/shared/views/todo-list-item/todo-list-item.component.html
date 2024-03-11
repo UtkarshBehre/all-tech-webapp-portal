@@ -1,9 +1,11 @@
 <li class="list-group-item d-flex justify-content-between align-items-center">
-    <input type="text" class="form-control d-inline me-2" placeholder="Enter Task"
+    
+    <input type="text" class="form-control d-inline me-1" placeholder="Enter Task"
         [(ngModel)]="toDoItemResponse.title" 
         (keydown.enter)="onInput($event)"
         (blur)="onBlur()"
+        [ngClass]="{'text-decoration-line-through': toDoItemResponse.isComplete}"
         >
-    <button class="btn btn-success btn-sm me-2 d-inline" (click)="onComplete()">Complete</button>
-    <button class="btn btn-danger btn-sm d-inline" (click)="onDelete()">Delete</button>
+    <mat-icon class="text-success me-1" aria-hidden="false" (click)="onComplete()" fontIcon="check_circle"></mat-icon>
+    <mat-icon class="text-danger" aria-hidden="false" (click)="onDelete()" fontIcon="delete_forever"></mat-icon>
 </li>
