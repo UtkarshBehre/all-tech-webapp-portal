@@ -12,6 +12,7 @@ export class TodoListItemComponent {
   @Input() toDoItemResponse!: IToDoItemResponse;
 
   @Output() onItemDelete = new EventEmitter<string>();
+  @Output() onItemComplete = new EventEmitter<IToDoItemResponse>();
 
   checkboxColor: ThemePalette = 'primary';
 
@@ -40,11 +41,7 @@ export class TodoListItemComponent {
 
   onComplete() {
     this.toDoItemResponse.isComplete = !this.toDoItemResponse.isComplete;
-    this.todoListService.updateToDoItem(this.toDoItemResponse).subscribe((response: IToDoItemResponse) => {
-      
-    }, (error: any) => {
-      alert('Error updating todo item');
-    });
+    this.onItemComplete.emit(this.toDoItemResponse);
   }
 
   onDelete() {
