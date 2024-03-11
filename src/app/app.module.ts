@@ -13,6 +13,7 @@ import { LandingPageComponent } from './dashboards/landing-page/landing-page.com
 import { PageNotFoundComponent } from './dashboards/page-not-found/page-not-found.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     SocialLoginModule,
     GoogleSigninButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule
   ],
   providers: [
     CookieService,

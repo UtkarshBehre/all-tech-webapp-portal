@@ -1,13 +1,15 @@
 
-    <h1 class="my-4">Todo List<mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon></h1>
-    <div class="card">
-        <ul class="list-group list-group-flush">
+    <h1 class="my-4 text-center">Todo List</h1>
+    <div class="my-4">
+        <div class="input-group border rounded-5 border-info align-items-center">
+            <input type="text" class="form-control border-0 rounded-4 border-0 ms-1 me-2" placeholder="New task" form-controlName="" (keydown.enter)="addTask()" [(ngModel)]="newTitle">
+            <mat-icon class="text-success me-2" aria-hidden="false" (click)="addTask()" fontIcon="add_circle"></mat-icon>
+        </div>
+    </div>
+    <div>
+        <h5 class="my-1 text-center">Tasks</h5>
+        <ul class="ps-0 task-list" aria-hidden="true">
             <app-todo-list-item [toDoItemResponse]="toDoItemResponse" *ngFor="let toDoItemResponse of toDoItemResponses" (onItemDelete)="onDelete($event)"></app-todo-list-item>
         </ul>
     </div>
-    <div class="my-4">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="New task" form-controlName="" (keydown.enter)="addTask()" [(ngModel)]="newTitle">
-            <button class="btn btn-primary" (click)="addTask()">Add</button>
-        </div>
-    </div>
+

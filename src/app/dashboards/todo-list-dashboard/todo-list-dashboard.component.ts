@@ -21,7 +21,7 @@ export class TodoListDashboardComponent {
   addTask() {
     let value = this.newTitle;
     this.todoListService.createToDoItem({title: value}).subscribe((response: IToDoItemResponse) => {
-      this.toDoItemResponses.push(response);
+      this.toDoItemResponses.unshift(response);
     }, (error: any) => {
       alert('Error creating todo item');
     });

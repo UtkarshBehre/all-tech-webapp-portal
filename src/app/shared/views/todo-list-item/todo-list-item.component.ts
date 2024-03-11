@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IToDoItemResponse } from '../../../../models/todo-item.model';
 import { TodoListServiceService } from '../../../../services/todo-list-service.service';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-todo-list-item',
@@ -11,6 +12,8 @@ export class TodoListItemComponent {
   @Input() toDoItemResponse!: IToDoItemResponse;
 
   @Output() onItemDelete = new EventEmitter<string>();
+
+  checkboxColor: ThemePalette = 'primary';
 
   toDoItemResponseOriginal!: IToDoItemResponse;
 
@@ -36,7 +39,7 @@ export class TodoListItemComponent {
   }
 
   onComplete() {
-    this.toDoItemResponse.isComplete = true;
+    this.toDoItemResponse.isComplete = !this.toDoItemResponse.isComplete;
     this.todoListService.updateToDoItem(this.toDoItemResponse).subscribe((response: IToDoItemResponse) => {
       
     }, (error: any) => {
