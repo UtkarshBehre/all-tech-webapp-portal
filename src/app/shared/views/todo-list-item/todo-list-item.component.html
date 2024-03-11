@@ -1,5 +1,5 @@
 <li class="list-group-item d-flex justify-content-between align-items-center border border-info mb-2 rounded-5">
-    <mat-checkbox class="ms-1" [color]="checkboxColor" [checked]="toDoItemResponse.isComplete" (change)="onComplete()"></mat-checkbox>
+    <mat-checkbox class="ms-2" [color]="checkboxColor" [checked]="toDoItemResponse.isComplete" (change)="onComplete()"></mat-checkbox>
     <input type="text" class="form-control d-inline m-1 rounded-4 border-0" placeholder="Enter Task"
         [(ngModel)]="toDoItemResponse.title" 
         (keydown.enter)="onInput($event)"
