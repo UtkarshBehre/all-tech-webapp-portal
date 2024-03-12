@@ -4,8 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodoListDashboardComponent } from './dashboards/todo-list-dashboard/todo-list-dashboard.component';
-import { TodoListItemComponent } from './shared/views/todo-list-item/todo-list-item.component';
-import { TopNavbarComponent } from './shared/views/top-navbar/top-navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,6 +12,8 @@ import { PageNotFoundComponent } from './dashboards/page-not-found/page-not-foun
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TodoListItemComponent } from './shared/todo-list-item/todo-list-item.component';
+import { TopNavbarComponent } from './shared/top-navbar/top-navbar.component';
 
 @NgModule({
   declarations: [

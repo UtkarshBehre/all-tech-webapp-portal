@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IToDoItemResponse } from '../../../../models/todo-item.model';
-import { TodoListServiceService } from '../../../../services/todo-list-service.service';
 import { ThemePalette } from '@angular/material/core';
+import { IToDoItemResponse } from '../../core/models/todo-item.model';
+import { TodoListServiceService } from '../../core/services/todo-list-service.service';
 
 @Component({
   selector: 'app-todo-list-item',

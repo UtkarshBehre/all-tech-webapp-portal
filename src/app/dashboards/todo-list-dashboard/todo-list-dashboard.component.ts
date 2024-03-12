@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IToDoItemResponse } from '../../../models/todo-item.model';
-import { TodoListServiceService } from '../../../services/todo-list-service.service';
+import { TodoListServiceService } from '../../core/services/todo-list-service.service';
+import { IToDoItemResponse } from '../../core/models/todo-item.model';
 
 @Component({
   selector: 'app-todo-list-dashboard',

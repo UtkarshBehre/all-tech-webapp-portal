@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { WeatherService } from '../services/weather.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import { WeatherService } from '../services/weather.service';
 export class AppComponent {
   title = 'all-tech-webapp-portal';
 
-  constructor(private weatherService: WeatherService) { }
+  constructor() { }
 
   ngOnInit() {
   }
