@@ -1,6 +1,6 @@
-import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { AllTechAuthService } from '../../core/services/all-tech-auth.service';
 
 @Component({
   selector: 'app-top-navbar',
@@ -9,11 +9,10 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class TopNavbarComponent {
   socialUser!: SocialUser;
-  isLoggedin?: boolean;
   
   constructor(
     private socialAuthService: SocialAuthService,
-    private cookieService: CookieService
+    private allTechAuthService: AllTechAuthService
   ) {}
 
   ngOnInit() {
@@ -23,14 +22,12 @@ export class TopNavbarComponent {
   subOnUser() {
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
-      this.isLoggedin = user != null;
-      console.log(user);
-      this.cookieService.set('gid-token', user.idToken);
+      this.allTechAuthService.setUser(user);
     });
   }
 
   logOut(): void {
-    this.cookieService.delete('gid-token');
+    this.allTechAuthService.removeUser();
     this.socialAuthService.signOut();
   }
 }

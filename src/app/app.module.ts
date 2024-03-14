@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodoListDashboardComponent } from './dashboards/todo-list-dashboard/todo-list-dashboard.component';
@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TodoListItemComponent } from './shared/todo-list-item/todo-list-item.component';
 import { TopNavbarComponent } from './shared/top-navbar/top-navbar.component';
+import { StoreModule } from './core/stores/store.module';
+import { AllTechServiceInterceptor } from './core/auth/interceptors/all-tech-service-interceptor';
 
 @NgModule({
   declarations: [
@@ -33,9 +35,11 @@ import { TopNavbarComponent } from './shared/top-navbar/top-navbar.component';
     SocialLoginModule,
     GoogleSigninButtonModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    StoreModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AllTechServiceInterceptor, multi: true },
     CookieService,
     {
       provide: 'SocialAuthServiceConfig',
