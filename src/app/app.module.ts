@@ -12,19 +12,20 @@ import { PageNotFoundComponent } from './dashboards/page-not-found/page-not-foun
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TodoListItemComponent } from './shared/todo-list-item/todo-list-item.component';
+import { TodoItemComponent } from './shared/todo-item/todo-item.component';
 import { TopNavbarComponent } from './shared/top-navbar/top-navbar.component';
-import { StoreModule } from './core/stores/store.module';
 import { AllTechServiceInterceptor } from './core/auth/interceptors/all-tech-service-interceptor';
+import { TodoGroupComponent } from './shared/todo-group/todo-group.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListDashboardComponent,
-    TodoListItemComponent,
+    TodoItemComponent,
     TopNavbarComponent,
     LandingPageComponent,
     PageNotFoundComponent,
+    TodoGroupComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +36,7 @@ import { AllTechServiceInterceptor } from './core/auth/interceptors/all-tech-ser
     SocialLoginModule,
     GoogleSigninButtonModule,
     MatIconModule,
-    MatCheckboxModule,
-    StoreModule
+    MatCheckboxModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AllTechServiceInterceptor, multi: true },

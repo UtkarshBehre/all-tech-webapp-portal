@@ -1,6 +1,15 @@
-import { Component } from '@angular/core';
-import { TodoListServiceService } from '../../core/services/todo-list-service.service';
-import { IToDoItemResponse } from '../../core/models/todo-item.model';
+import { Component, OnChanges } from '@angular/core';
+import { ITodoItemResponse } from '../../core/models/todo-item.model';
+import { TodoItemService } from '../../core/services/todo-item.service';
+import { UserService } from '../../core/services/user.service';
+import { UserTodoService } from '../../core/services/user-todo.service';
+import { TodoGroupService } from '../../core/services/todo-group.service';
+import { IUserResponse } from '../../core/models/user.model';
+import { IUserTodoResponse } from '../../core/models/user-todo.model';
+import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
+import { AllTechAuthService } from '../../core/services/all-tech-auth.service';
+import { forkJoin } from 'rxjs';
+import { ITodoGroupResponse } from '../../core/models/todo-group.model';
 
 @Component({
   selector: 'app-todo-list-dashboard',
@@ -9,27 +18,83 @@ import { IToDoItemResponse } from '../../core/models/todo-item.model';
 })
 export class TodoListDashboardComponent {
 
-  toDoItemResponses: IToDoItemResponse[] = [];
-  toDoCompletedItemResponses: IToDoItemResponse[] = [];
-  toDoInCompletedItemResponses: IToDoItemResponse[] = [];
+  isLoggedIn = false;
+  userResponse!: IUserResponse;
+  userTodoResponse!: IUserTodoResponse;
+  
+  inCompletedItemsByGroup: Map<string, ITodoItemResponse[]> = new Map<string, ITodoItemResponse[]>();
+  inCompletedGroupIds: string[] = [];
+  completedItemsByGroup: Map<string, ITodoItemResponse[]> = new Map<string, ITodoItemResponse[]>();
+  completedGroupIds: string[] = [];
+
+  todoGroupResponseById: Map<string, ITodoGroupResponse> = new Map<string, ITodoGroupResponse>();
+
+  todoItemResponses: ITodoItemResponse[] = [];
+  todoCompletedItemResponses: ITodoItemResponse[] = [];
+  todoInCompletedItemResponses: ITodoItemResponse[] = [];
   newTitle: string = '';
 
-  constructor(private todoListService: TodoListServiceService) {
-    this.todoListService.getAllToDoItems().subscribe((response: any) => {
-      this.toDoItemResponses = response;
-      this.filterUpdatedItems();
+  constructor(
+    private todoItemService: TodoItemService,
+    private todoGroupService: TodoGroupService,
+    private userTodoService: UserTodoService,
+    private userService: UserService,
+    private allTechAuthService: AllTechAuthService
+        ) {
+    this.allTechAuthService.socialUserSubject.subscribe((socialUser) => {
+      this.isLoggedIn = socialUser !== null;
+      if (this.isLoggedIn) {
+        this.loadUserData();
+      }
+      else{
+        this.resetData();
+      }
     });
   }
 
+  async ngOnInit() { 
+  }
+
+   async loadUserData() {
+    this.userResponse = await firstValueFrom(this.userService.getUser());
+    this.userTodoResponse = await firstValueFrom(this.userTodoService.getUserTodoById(this.userResponse.id));
+
+    for(let groupId of this.userTodoResponse.groupIds) {
+      let inCompletedItems = await firstValueFrom(this.todoItemService.getTodoItemsByGroup(groupId, false));
+      this.inCompletedItemsByGroup.has(groupId) ? this.inCompletedItemsByGroup.get(groupId)?.concat(inCompletedItems) : this.inCompletedItemsByGroup.set(groupId, inCompletedItems);
+      let completedItems = await firstValueFrom(this.todoItemService.getTodoItemsByGroup(groupId, true));
+      this.completedItemsByGroup.has(groupId) ? this.completedItemsByGroup.get(groupId)?.concat(completedItems) : this.completedItemsByGroup.set(groupId, completedItems);
+    }
+    this.completedGroupIds = Array.from(this.completedItemsByGroup.keys());
+    this.inCompletedGroupIds = Array.from(this.inCompletedItemsByGroup.keys());
+    
+    let groupIds: Set<string> = new Set<string>();
+    this.completedGroupIds.forEach((groupId: string) => groupIds.add(groupId));
+    this.inCompletedGroupIds.forEach((groupId: string) => groupIds.add(groupId));
+
+    for(let groupId of groupIds) {
+      let todoGroupResponse = await firstValueFrom(this.todoGroupService.getTodoGroupById(groupId));
+      this.todoGroupResponseById.set(groupId, todoGroupResponse);
+    }
+  }
+
+  resetData() {
+    this.userResponse = {} as IUserResponse;
+    this.userTodoResponse = {} as IUserTodoResponse;
+    this.todoItemResponses = [];
+    this.todoCompletedItemResponses = [];
+    this.todoInCompletedItemResponses = [];
+  }
+
   filterUpdatedItems() {
-    this.toDoCompletedItemResponses = this.toDoItemResponses.filter((item: IToDoItemResponse) => item.isComplete);
-    this.toDoInCompletedItemResponses = this.toDoItemResponses.filter((item: IToDoItemResponse) => !item.isComplete);
+    this.todoCompletedItemResponses = this.todoItemResponses.filter((item: ITodoItemResponse) => item.isComplete);
+    this.todoInCompletedItemResponses = this.todoItemResponses.filter((item: ITodoItemResponse) => !item.isComplete);
   }
 
   addTask() {
     let value = this.newTitle;
-    this.todoListService.createToDoItem({title: value}).subscribe((response: IToDoItemResponse) => {
-      this.toDoItemResponses.unshift(response);
+    this.todoItemService.createTodoItem({title: value}).subscribe((response: ITodoItemResponse) => {
+      this.todoItemResponses.unshift(response);
       this.filterUpdatedItems();
     }, (error: any) => {
       alert('Error creating todo item');
@@ -37,8 +102,8 @@ export class TodoListDashboardComponent {
     this.newTitle = '';
   }
 
-  onComplete(toDoItemResponse: IToDoItemResponse) {
-    this.todoListService.updateToDoItem(toDoItemResponse).subscribe((response: IToDoItemResponse) => {
+  onComplete(todoItemResponse: ITodoItemResponse) {
+    this.todoItemService.updateTodoItem(todoItemResponse.id, todoItemResponse).subscribe((response: ITodoItemResponse) => {
       this.filterUpdatedItems();
     }, (error: any) => {
       alert('Error updating todo item');
@@ -46,8 +111,8 @@ export class TodoListDashboardComponent {
   }
 
   onDelete(id: string) {
-    this.todoListService.deleteToDoItem(id).subscribe((response: boolean) => {
-      this.toDoItemResponses = this.toDoItemResponses.filter((item: IToDoItemResponse) => item.id !== id)
+    this.todoItemService.deleteTodoItem(id).subscribe((response: boolean) => {
+      this.todoItemResponses = this.todoItemResponses.filter((item: ITodoItemResponse) => item.id !== id)
       this.filterUpdatedItems();
     }, (error: any) => {
       alert('Error deleting todo item');

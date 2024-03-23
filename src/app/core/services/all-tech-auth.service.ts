@@ -1,25 +1,30 @@
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
-import { AppStore } from '../stores/app.store';
-import { CookieService } from 'ngx-cookie-service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AllTechAuthService {
+  socialUser: SocialUser | null = null;
+  socialUserSubject = new Subject<SocialUser | null>();
 
   // app store has to be public because appStore is skeleton class
-  constructor(public appStore: AppStore) { } 
+  constructor() { 
+    this.socialUserSubject.subscribe((socialUser) => {
+      this.socialUser = socialUser;
+    });
+  } 
   
   setUser(user: SocialUser): void {
-    this.appStore.todoStore.setUser(user);
+    this.socialUserSubject.next(user);
   }
 
   removeUser(): void {
-    this.appStore.todoStore.removeUser();
+    this.socialUserSubject.next(null);
   }
 
   acquireToken(): string {
-    return this.appStore.todoStore.acquireToken();
+    return this.socialUser?.idToken ?? '';
   }
 }
