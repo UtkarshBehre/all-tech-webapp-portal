@@ -18,7 +18,7 @@ export class TodoItemComponent {
 
   todoItemResponseOriginal!: ITodoItemResponse;
 
-  constructor(private todoListService: TodoItemService) {
+  constructor(private todoItemService: TodoItemService) {
   }
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class TodoItemComponent {
   }
 
   onInput(event: any) {
-    this.todoListService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).subscribe((response: any) => {
+    this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).subscribe((response: any) => {
       
     }, (error: any) => {
       alert('Error updating todo item');
@@ -41,7 +41,12 @@ export class TodoItemComponent {
 
   onComplete() {
     this.todoItemResponse.isComplete = !this.todoItemResponse.isComplete;
-    this.onItemComplete.emit(this.todoItemResponse);
+    this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).subscribe((response: ITodoItemResponse) => {
+      this.todoItemResponse = response;
+    }, (error: any) => {
+      alert('Error updating todo item');
+    });
+    //this.onItemComplete.emit(this.todoItemResponse);
   }
 
   onDelete() {

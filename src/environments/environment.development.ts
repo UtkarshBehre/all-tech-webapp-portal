@@ -28,6 +28,9 @@ export const environment = {
             endpoint_get: '/user',
             endpoint_update: '/user/update/',
             endpoint_delete: '/user/delete/'
+        },
+        dashboard: {
+            endpoint_get: '/dashboard/'
         }
     }
 };

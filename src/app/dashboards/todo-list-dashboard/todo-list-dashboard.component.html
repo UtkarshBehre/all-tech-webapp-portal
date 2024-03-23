@@ -1,30 +1,22 @@
-
 <p *ngIf="!isLoggedIn">Please log in to access this tool</p>
-<div *ngIf="isLoggedIn">
+<p *ngIf="isLoading">Loading...</p>
+<div *ngIf="isLoggedIn && !isLoading">
     <h1 class="my-4 text-center">Todo List</h1>
-    <div class="my-4">
-        <div class="input-group border rounded-5 border-info align-items-center">
-            <input type="text" class="form-control border-0 rounded-4 border-0 ms-1 me-2" placeholder="New task" form-controlName="" (keydown.enter)="addTask()" [(ngModel)]="newTitle">
-            <mat-icon class="text-success me-2" aria-hidden="false" (click)="addTask()" fontIcon="add_circle"></mat-icon>
-        </div>
-    </div> 
 
-    <div *ngFor="let todoIncompleteItem of todoInCompletedItemResponses" >
-        <div *ngFor="let groupId of inCompletedGroupIds">
-            <div *ngIf="todoIncompleteItem.groupId === groupId">
-                <h5 class="my-1 text-center">{{todoGroupResponseById.get(groupId)?.name}}</h5>
-                <ul class="ps-0 task-list" aria-hidden="true">
-                    <app-todo-item [todoItemResponse]="todoIncompleteItem" (onItemDelete)="onDelete($event)" (onItemComplete)="onComplete($event)"></app-todo-item>
-                </ul>
-            </div>
+    <div *ngFor="let todoGroup of todoGroups">
+        <h5 class="my-1 text-center">{{todoGroup.name}}</h5>
+        <div class="input-group border rounded-5 border-info align-items-center mb-2">
+            <input type="text" class="form-control border-0 rounded-4 border-0 ms-1 me-2" placeholder="New task"
+                form-controlName="" (keydown.enter)="addTask(todoGroup.id)" [(ngModel)]="newTitle">
+            <mat-icon class="text-success me-2" aria-hidden="false" (click)="addTask(todoGroup.id)"
+                fontIcon="add_circle"></mat-icon>
         </div>
-        
-        <!-- <div>
-            <h5 *ngIf="" class="my-1 text-center">Remaining Tasks</h5>
-            <ul class="ps-0 task-list" aria-hidden="true">
-                <app-todo-item [todoItemResponse]="toDoItemResponse" *ngFor="let toDoItemResponse of todoInCompletedItemResponses" (onItemDelete)="onDelete($event)" (onItemComplete)="onComplete($event)"></app-todo-item>
-            </ul>
-        </div> -->
+        <ul class="ps-0 task-list" aria-hidden="true">
+            @for (todoItem of todoItems; track $index) {
+                @if (todoItem.groupId === todoGroup.id){
+                    <app-todo-item [todoItemResponse]="todoItem" (onItemDelete)="onDelete($event)"></app-todo-item>
+                }
+            }
+        </ul>
     </div>
 </div>
-

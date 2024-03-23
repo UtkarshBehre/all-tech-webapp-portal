@@ -16,6 +16,8 @@ import { TodoItemComponent } from './shared/todo-item/todo-item.component';
 import { TopNavbarComponent } from './shared/top-navbar/top-navbar.component';
 import { AllTechServiceInterceptor } from './core/auth/interceptors/all-tech-service-interceptor';
 import { TodoGroupComponent } from './shared/todo-group/todo-group.component';
+import { LeftNavbarComponent } from './shared/left-navbar/left-navbar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { TodoGroupComponent } from './shared/todo-group/todo-group.component';
     TopNavbarComponent,
     LandingPageComponent,
     PageNotFoundComponent,
-    TodoGroupComponent
+    TodoGroupComponent,
+    LeftNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { TodoGroupComponent } from './shared/todo-group/todo-group.component';
     SocialLoginModule,
     GoogleSigninButtonModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSidenavModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AllTechServiceInterceptor, multi: true },
