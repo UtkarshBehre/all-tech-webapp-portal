@@ -16,7 +16,6 @@ import { TodoItemComponent } from './shared/todo-item/todo-item.component';
 import { TopNavbarComponent } from './shared/top-navbar/top-navbar.component';
 import { AllTechServiceInterceptor } from './core/auth/interceptors/all-tech-service-interceptor';
 import { TodoGroupComponent } from './shared/todo-group/todo-group.component';
-import { LeftNavbarComponent } from './shared/left-navbar/left-navbar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
@@ -27,8 +26,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     TopNavbarComponent,
     LandingPageComponent,
     PageNotFoundComponent,
-    TodoGroupComponent,
-    LeftNavbarComponent
+    TodoGroupComponent
   ],
   imports: [
     BrowserModule,

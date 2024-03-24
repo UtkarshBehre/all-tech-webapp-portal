@@ -28,6 +28,7 @@ export class TodoListDashboardComponent {
   todoGroups: ITodoGroupResponse[] = [];
   todoItems: ITodoItemResponse[] = [];
   newTitle: string = '';
+  selectedGroup!: ITodoGroupResponse;
 
   constructor(
     private dashboardService: DashboardService,
@@ -45,9 +46,6 @@ export class TodoListDashboardComponent {
       if (this.isLoggedIn) {
         this.loadUserData();
       }
-      else{
-        this.resetData();
-      }
     });
     this.isLoggedIn = this.allTechAuthService.socialUser !== null
     if (this.isLoggedIn) {
@@ -55,10 +53,12 @@ export class TodoListDashboardComponent {
     }
   }
 
-   async loadUserData() {
-    this.isLoading = true;
+  changeGroup(selectedGroup: ITodoGroupResponse) {
+    this.selectedGroup = selectedGroup;
+  }
 
-    
+  async loadUserData() {
+    this.isLoading = true;
 
     this.userResponse = await firstValueFrom(this.userService.getUser());
     let dashboardData = await firstValueFrom(this.dashboardService.GetUserDashboardData(this.userResponse.id));
@@ -67,31 +67,29 @@ export class TodoListDashboardComponent {
     this.todoGroups = dashboardData.todoGroups;
     console.log(this.todoItems);
     console.log(this.todoGroups);
+    this.selectedGroup = this.todoGroups[0];
     this.isLoading = false;
   }
 
-  resetData() {
-  }
+  // addTask(id: string) {
+  //   let value = this.newTitle;
+  //   let request: ITodoItemCreateRequest = {
+  //     title: value,
+  //     groupId: id
+  //   };
+  //   this.todoItemService.createTodoItem(request).subscribe((response: ITodoItemResponse) => {
+  //     this.todoItems.unshift(response);
+  //   }, (error: any) => {
+  //     alert('Error creating todo item');
+  //   });
+  //   this.newTitle = '';
+  // }
 
-  addTask(id: string) {
-    let value = this.newTitle;
-    let request: ITodoItemCreateRequest = {
-      title: value,
-      groupId: id
-    };
-    this.todoItemService.createTodoItem(request).subscribe((response: ITodoItemResponse) => {
-      this.todoItems.unshift(response);
-    }, (error: any) => {
-      alert('Error creating todo item');
-    });
-    this.newTitle = '';
-  }
-
-  onDelete(id: string) {
-    this.todoItemService.deleteTodoItem(id).subscribe((response: boolean) => {
-      this.todoItems = this.todoItems.filter((item: ITodoItemResponse) => item.id !== id)
-    }, (error: any) => {
-      alert('Error deleting todo item');
-    });
-  }
+  // onDelete(id: string) {
+  //   this.todoItemService.deleteTodoItem(id).subscribe((response: boolean) => {
+  //     this.todoItems = this.todoItems.filter((item: ITodoItemResponse) => item.id !== id)
+  //   }, (error: any) => {
+  //     alert('Error deleting todo item');
+  //   });
+  // }
 }

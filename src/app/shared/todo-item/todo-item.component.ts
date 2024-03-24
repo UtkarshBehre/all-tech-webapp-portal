@@ -44,6 +44,7 @@ export class TodoItemComponent {
     this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).subscribe((response: ITodoItemResponse) => {
       this.todoItemResponse = response;
     }, (error: any) => {
+      this.todoItemResponse.isComplete = !this.todoItemResponse.isComplete;
       alert('Error updating todo item');
     });
     //this.onItemComplete.emit(this.todoItemResponse);

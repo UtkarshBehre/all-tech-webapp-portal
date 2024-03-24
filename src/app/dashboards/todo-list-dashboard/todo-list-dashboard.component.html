@@ -1,22 +1,25 @@
-<p *ngIf="!isLoggedIn">Please log in to access this tool</p>
-<p *ngIf="isLoading">Loading...</p>
-<div *ngIf="isLoggedIn && !isLoading">
-    <h1 class="my-4 text-center">Todo List</h1>
-
-    <div *ngFor="let todoGroup of todoGroups">
-        <h5 class="my-1 text-center">{{todoGroup.name}}</h5>
-        <div class="input-group border rounded-5 border-info align-items-center mb-2">
-            <input type="text" class="form-control border-0 rounded-4 border-0 ms-1 me-2" placeholder="New task"
-                form-controlName="" (keydown.enter)="addTask(todoGroup.id)" [(ngModel)]="newTitle">
-            <mat-icon class="text-success me-2" aria-hidden="false" (click)="addTask(todoGroup.id)"
-                fontIcon="add_circle"></mat-icon>
-        </div>
-        <ul class="ps-0 task-list" aria-hidden="true">
-            @for (todoItem of todoItems; track $index) {
-                @if (todoItem.groupId === todoGroup.id){
-                    <app-todo-item [todoItemResponse]="todoItem" (onItemDelete)="onDelete($event)"></app-todo-item>
-                }
-            }
+<div *ngIf="!isLoggedIn" class="text-center align-items-center h4 mt-5">Please log in to access this tool</div>
+<div *ngIf="isLoading && isLoggedIn" class="text-center align-items-center h4 mt-5">Loading...</div>
+@if (isLoggedIn && !isLoading) {
+<mat-drawer-container class="main-container" autosize>
+    <mat-drawer [opened]="true" class="main-sidenav" mode="side">
+        
+        @for (todoGroup of todoGroups; track $index) {
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <span [ngClass]="todoGroup.id == selectedGroup.id ? 'font-selected' : 'font-weight-normal'">
+                    <a class="nav-link" (click)="changeGroup(todoGroup)">{{todoGroup.name}}</a>
+                </span>
+            </li>
         </ul>
+        }
+    </mat-drawer>
+
+    <div class="main-sidenav-content">
+
+        <app-todo-group [todoGroups]="todoGroups" [todoItems]="todoItems"
+            [selectedTodoGroup]="selectedGroup"></app-todo-group>
+
     </div>
-</div>
+</mat-drawer-container>
+}

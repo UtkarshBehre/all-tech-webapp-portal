@@ -20,13 +20,13 @@ export class TodoItemService {
     return this.httpClient.post<ITodoItemResponse>(`${this.config.endpoint_base_url}${this.config.todoItem.endpoint_create}`, todoItemCreateRequest);
   }
 
-  getAllTodoItems(): Observable<ITodoItemResponse[]> {
+  getTodoItemsByUser(userId: string): Observable<ITodoItemResponse[]> {
     const url = `${this.config.endpoint_base_url}${this.config.endpoint_get_all}`;
-    return this.httpClient.get<ITodoItemResponse[]>(`${this.config.endpoint_base_url}${this.config.todoItem.endpoint_get_all}`);
+    return this.httpClient.get<ITodoItemResponse[]>(`${this.config.endpoint_base_url}${this.config.todoItem.endpoint_get_by_user}${userId}`);
   }
 
-  getTodoItemsByGroup(groupId: string, isComplete: boolean): Observable<ITodoItemResponse[]> {
-    return this.httpClient.get<ITodoItemResponse[]>(`${this.config.endpoint_base_url}${this.config.todoItem.endpoint_get_by_group}${groupId}/${isComplete}`);
+  getTodoItemsByGroup(groupId: string | null): Observable<ITodoItemResponse[]> {
+    return this.httpClient.get<ITodoItemResponse[]>(`${this.config.endpoint_base_url}${this.config.todoItem.endpoint_get_by_group}${groupId}`);
   }
 
   getTodoItemById(id: string): Observable<ITodoItemResponse> {

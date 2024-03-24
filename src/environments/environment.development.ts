@@ -4,8 +4,8 @@ export const environment = {
         //endpoint_base_url: 'https://localhost:7152/api',
         todoItem: {
             endpoint_create: '/todoItem/create',
-            endpoint_get_all: '/todoItem/all',
-            endpoint_get_by_group: '/todoItem/all/',
+            endpoint_get_by_user: '/todoItem/all/userId=',
+            endpoint_get_by_group: '/todoItem/all/groupId=',
             endpoint_get_by_id: '/todoItem/',
             endpoint_update: '/todoItem/update/',
             endpoint_delete: '/todoItem/delete/'
