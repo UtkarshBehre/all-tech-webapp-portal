@@ -12,11 +12,16 @@ import { PageNotFoundComponent } from './dashboards/page-not-found/page-not-foun
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TodoItemComponent } from './shared/todo-item/todo-item.component';
+import { TodoItemComponent } from './dashboards/todo-list-dashboard/todo-group/todo-item/todo-item.component';
 import { TopNavbarComponent } from './shared/top-navbar/top-navbar.component';
 import { AllTechServiceInterceptor } from './core/auth/interceptors/all-tech-service-interceptor';
-import { TodoGroupComponent } from './shared/todo-group/todo-group.component';
+import { TodoGroupComponent } from './dashboards/todo-list-dashboard/todo-group/todo-group.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { TodoGroupCreateComponent } from './dashboards/todo-list-dashboard/todo-group/todo-group-create/todo-group-create.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     TopNavbarComponent,
     LandingPageComponent,
     PageNotFoundComponent,
-    TodoGroupComponent
+    TodoGroupComponent,
+    TodoGroupCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +44,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     GoogleSigninButtonModule,
     MatIconModule,
     MatCheckboxModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AllTechServiceInterceptor, multi: true },

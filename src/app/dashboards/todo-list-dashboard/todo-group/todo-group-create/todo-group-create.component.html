@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Create New Group</h2>
+<mat-dialog-content>
+  <p>What's the name of your new group?</p>
+  <mat-form-field>
+    <mat-label>Group Name</mat-label>
+    <input matInput [(ngModel)]="todoGroup.name">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions [align]="'end'">
+  <button mat-button (click)="onCreateClick()" color="primary" cdkFocusInitial>Create</button>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+</mat-dialog-actions>

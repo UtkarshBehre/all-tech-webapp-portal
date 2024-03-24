@@ -9,9 +9,11 @@ import { IUserTodoResponse } from '../../core/models/user-todo.model';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { AllTechAuthService } from '../../core/services/all-tech-auth.service';
 import { first, forkJoin } from 'rxjs';
-import { ITodoGroupResponse } from '../../core/models/todo-group.model';
+import { ITodoGroupCreateRequest, ITodoGroupResponse } from '../../core/models/todo-group.model';
 import { DashboardService } from '../../core/services/dashboard.service';
 import { ITodoItemCreateRequest } from '../../core/models/todo-item.model';
+import { MatDialog } from '@angular/material/dialog';
+import { TodoGroupCreateComponent } from './todo-group/todo-group-create/todo-group-create.component';
 
 @Component({
   selector: 'app-todo-list-dashboard',
@@ -27,8 +29,9 @@ export class TodoListDashboardComponent {
   
   todoGroups: ITodoGroupResponse[] = [];
   todoItems: ITodoItemResponse[] = [];
-  newTitle: string = '';
+  newTodoGroup!: ITodoGroupResponse;
   selectedGroup!: ITodoGroupResponse;
+
 
   constructor(
     private dashboardService: DashboardService,
@@ -36,8 +39,14 @@ export class TodoListDashboardComponent {
     private todoGroupService: TodoGroupService,
     private userTodoService: UserTodoService,
     private userService: UserService,
-    private allTechAuthService: AllTechAuthService
+    private allTechAuthService: AllTechAuthService,
+    private dialog: MatDialog
         ) {
+    this.newTodoGroup = {
+      id: '',
+      name: '',
+      etag: '',
+    };
   }
 
   async ngOnInit() { 
@@ -69,6 +78,16 @@ export class TodoListDashboardComponent {
     console.log(this.todoGroups);
     this.selectedGroup = this.todoGroups[0];
     this.isLoading = false;
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(TodoGroupCreateComponent, {
+      data: this.newTodoGroup,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.todoGroups.push(result);
+    });
   }
 
   // addTask(id: string) {

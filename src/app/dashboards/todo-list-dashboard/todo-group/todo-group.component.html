@@ -1,10 +1,19 @@
-<h5 class="my-1 text-center">{{selectedTodoGroup.name}}</h5>
-<div class="input-group border rounded-5 border-info align-items-center mb-2">
+<h5 class="my-1 text-center">{{selectedTodoGroup.name.toUpperCase()}}
+    <mat-icon class="group-edit-icon" (click)="editGroupName(selectedTodoGroup)" color="primary" fontIcon="edit"></mat-icon>
+</h5>
+<!-- <div class="input-group border rounded-5 border-info align-items-center mb-2">
     <input type="text" class="form-control border-0 rounded-4 border-0 ms-1 me-2" placeholder="New task"
         form-controlName="" (keydown.enter)="addTask(selectedTodoGroup.id)" [(ngModel)]="newTitle">
     <mat-icon class="text-success me-2" aria-hidden="false" (click)="addTask(selectedTodoGroup.id)"
         fontIcon="add_circle"></mat-icon>
-</div>
+</div> -->
+
+<mat-form-field style="width: 100%;">
+    <mat-label>Enter new Task</mat-label>
+    <input matInput [(ngModel)]="newTitle" (keydown.enter)="addTask(selectedTodoGroup.id)">
+    <mat-icon matSuffix (click)="addTask(selectedTodoGroup.id)" color="primary" fontIcon="add_circle"></mat-icon>
+</mat-form-field>
+
 <ul class="ps-0 task-list" aria-hidden="true">
     @for (todoItem of todoItems; track $index) {
         @if (todoItem.groupId === selectedTodoGroup.id && !todoItem.isComplete){
@@ -12,7 +21,7 @@
         }
     }
 </ul>
-<h5 class="my-1 text-center">Completed</h5>
+<h5 class="my-1 text-center">COMPLETED</h5>
 <ul class="ps-0 task-list" aria-hidden="true">
     @for (todoItem of todoItems; track $index) {
         @if (todoItem.groupId === selectedTodoGroup.id && todoItem.isComplete){

@@ -9,7 +9,6 @@ import { IUserCreateRequest, IUserResponse, IUserUpdateRequest } from '../models
 })
 export class UserService {
   config: any;
-
   constructor(private httpClient: HttpClient) { 
     this.config = environment.services_config;
   }

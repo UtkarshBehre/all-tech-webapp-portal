@@ -3,7 +3,7 @@ export interface ITodoGroupRequest
     name: string;
 }
 
-export interface ITodoGroupCreateRequest
+export interface ITodoGroupCreateRequest extends ITodoGroupRequest
 {
 }
 

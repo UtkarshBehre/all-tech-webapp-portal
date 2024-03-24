@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { ITodoItemResponse } from '../../core/models/todo-item.model';
-import { TodoItemService } from '../../core/services/todo-item.service';
+import { ITodoItemResponse } from '../../../../core/models/todo-item.model';
+import { TodoItemService } from '../../../../core/services/todo-item.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -15,8 +15,9 @@ export class TodoItemComponent {
   @Output() onItemComplete = new EventEmitter<ITodoItemResponse>();
 
   checkboxColor: ThemePalette = 'primary';
-
   todoItemResponseOriginal!: ITodoItemResponse;
+
+  isEditable = false;
 
   constructor(private todoItemService: TodoItemService) {
   }
@@ -27,7 +28,7 @@ export class TodoItemComponent {
 
   onInput(event: any) {
     this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).subscribe((response: any) => {
-      
+      this.isEditable = false;
     }, (error: any) => {
       alert('Error updating todo item');
     });
@@ -37,6 +38,7 @@ export class TodoItemComponent {
 
   onBlur(){
     this.todoItemResponse = { ...this.todoItemResponseOriginal };
+    this.isEditable = false;
   }
 
   onComplete() {
@@ -50,7 +52,11 @@ export class TodoItemComponent {
     //this.onItemComplete.emit(this.todoItemResponse);
   }
 
-  onDelete() {
+  onEditClick() {
+    this.isEditable = true;
+  }
+
+  onDeleteClick() {
     this.onItemDelete.emit(this.todoItemResponse.id);
   }
 }

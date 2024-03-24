@@ -1,25 +1,3 @@
-$color-info: #17a2b8;
-
-mat-icon {
-    width: 26px;
-    height: 26px;
-    font-size: 24px;
-}
-
-mat-icon:hover {
-    cursor: pointer;
-    font-size: 26px;
-}
-
-.task-list {
-    width: 101%;
-    max-height: 23em;
-    //border: 1px dotted rgb(133, 69, 59);
-    overflow-y: scroll; /* Add the ability to scroll */
-    scrollbar-width: thin;
-    scrollbar-color: $color-info white;
-}
-
 .main-container {
     width: 100%;
     height: 100%;
@@ -38,5 +16,9 @@ mat-icon:hover {
 
 .font-selected {
     font-weight: bold;
+}
+
+.font-not-selected {
+    font-weight: normal;
     cursor: pointer;
 }

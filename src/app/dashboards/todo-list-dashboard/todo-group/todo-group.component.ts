@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { ITodoGroupResponse } from '../../core/models/todo-group.model';
-import { ITodoItemResponse, ITodoItemCreateRequest } from '../../core/models/todo-item.model';
-import { IUserTodoResponse } from '../../core/models/user-todo.model';
-import { IUserResponse } from '../../core/models/user.model';
-import { AllTechAuthService } from '../../core/services/all-tech-auth.service';
-import { DashboardService } from '../../core/services/dashboard.service';
-import { TodoGroupService } from '../../core/services/todo-group.service';
-import { TodoItemService } from '../../core/services/todo-item.service';
-import { UserTodoService } from '../../core/services/user-todo.service';
-import { UserService } from '../../core/services/user.service';
+import { ITodoGroupResponse } from '../../../core/models/todo-group.model';
+import { ITodoItemResponse, ITodoItemCreateRequest } from '../../../core/models/todo-item.model';
+import { IUserTodoResponse } from '../../../core/models/user-todo.model';
+import { IUserResponse } from '../../../core/models/user.model';
+import { AllTechAuthService } from '../../../core/services/all-tech-auth.service';
+import { DashboardService } from '../../../core/services/dashboard.service';
+import { TodoGroupService } from '../../../core/services/todo-group.service';
+import { TodoItemService } from '../../../core/services/todo-item.service';
+import { UserTodoService } from '../../../core/services/user-todo.service';
+import { UserService } from '../../../core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -45,6 +45,11 @@ export class TodoGroupComponent {
   }
 
   resetData() {
+  }
+
+  editGroupName(todoGroup: ITodoGroupResponse) {
+    // popup dialog to edit group name
+    throw new Error('Method not implemented.');
   }
 
   addTask(id: string) {

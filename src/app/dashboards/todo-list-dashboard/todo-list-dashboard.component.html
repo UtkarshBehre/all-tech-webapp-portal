@@ -3,22 +3,28 @@
 @if (isLoggedIn && !isLoading) {
 <mat-drawer-container class="main-container" autosize>
     <mat-drawer [opened]="true" class="main-sidenav" mode="side">
-        
-        @for (todoGroup of todoGroups; track $index) {
+        <h6 class="my-1">Groups</h6>
+
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <span [ngClass]="todoGroup.id == selectedGroup.id ? 'font-selected' : 'font-weight-normal'">
+            @for (todoGroup of todoGroups; track $index) {
+
+            <li class="nav-item  ms-3">
+                <span [ngClass]="todoGroup.id == selectedGroup.id ? 'font-selected' : 'font-not-selected'">
                     <a class="nav-link" (click)="changeGroup(todoGroup)">{{todoGroup.name}}</a>
                 </span>
             </li>
+
+            }
+            <li>
+                <button mat-raised-button (click)="openDialog()">Add Group</button>
+            </li>
         </ul>
-        }
     </mat-drawer>
 
-    <div class="main-sidenav-content">
+    <div class="main-sidenav-content col-12">
 
         <app-todo-group [todoGroups]="todoGroups" [todoItems]="todoItems"
-            [selectedTodoGroup]="selectedGroup"></app-todo-group>
+            [selectedTodoGroup]="selectedGroup" class="col-6"></app-todo-group>
 
     </div>
 </mat-drawer-container>
