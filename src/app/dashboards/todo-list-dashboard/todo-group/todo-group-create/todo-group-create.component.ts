@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserTodoService } from '../../../../core/services/user-todo.service';
 import { TodoGroupService } from '../../../../core/services/todo-group.service';
-import { IUserTodoCreateRequest } from '../../../../core/models/user-todo.model';
 import { UserService } from '../../../../core/services/user.service';
 import { ITodoGroupCreateRequest } from '../../../../core/models/todo-group.model';
 
@@ -30,6 +29,8 @@ export class TodoGroupCreateComponent {
     if (!this.todoGroup.name || this.todoGroup.name.trim() === '') {
       return;
     }
+
+    // TODO: create a single api in backend to avoid these many calls back to back
 
     this.todoGroupService.createTodoGroup(this.todoGroup).subscribe((todoGroup) => {
       this.todoGroup = todoGroup;

@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { TodoGroupUpdateComponent } from './dashboards/todo-list-dashboard/todo-group/todo-group-update/todo-group-update.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatInputModule } from '@angular/material/input';
     LandingPageComponent,
     PageNotFoundComponent,
     TodoGroupComponent,
-    TodoGroupCreateComponent
+    TodoGroupCreateComponent,
+    TodoGroupUpdateComponent
   ],
   imports: [
     BrowserModule,

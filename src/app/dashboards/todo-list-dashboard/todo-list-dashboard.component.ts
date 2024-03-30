@@ -8,10 +8,8 @@ import { IUserResponse } from '../../core/models/user.model';
 import { IUserTodoResponse } from '../../core/models/user-todo.model';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { AllTechAuthService } from '../../core/services/all-tech-auth.service';
-import { first, forkJoin } from 'rxjs';
-import { ITodoGroupCreateRequest, ITodoGroupResponse } from '../../core/models/todo-group.model';
+import { ITodoGroupResponse } from '../../core/models/todo-group.model';
 import { DashboardService } from '../../core/services/dashboard.service';
-import { ITodoItemCreateRequest } from '../../core/models/todo-item.model';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoGroupCreateComponent } from './todo-group/todo-group-create/todo-group-create.component';
 
@@ -80,13 +78,14 @@ export class TodoListDashboardComponent {
     this.isLoading = false;
   }
 
-  openDialog() {
+  openCreateDialog() {
     const dialogRef = this.dialog.open(TodoGroupCreateComponent, {
       data: this.newTodoGroup,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: ITodoGroupResponse) => {
       this.todoGroups.push(result);
+      this.selectedGroup = result;
     });
   }
 

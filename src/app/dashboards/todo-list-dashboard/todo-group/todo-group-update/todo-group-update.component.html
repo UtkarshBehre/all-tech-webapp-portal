@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Update New Group</h2>
+<mat-dialog-content>
+  <p>You can change the name of the group here.</p>
+  <mat-form-field>
+    <mat-label>Group Name</mat-label>
+    <input matInput [(ngModel)]="todoGroup.name">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions [align]="'end'">
+  <button mat-button (click)="onUpdateClick()" color="primary" cdkFocusInitial>Update</button>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+</mat-dialog-actions>

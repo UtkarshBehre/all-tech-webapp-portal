@@ -1,16 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
 import { ITodoGroupResponse } from '../../../core/models/todo-group.model';
 import { ITodoItemResponse, ITodoItemCreateRequest } from '../../../core/models/todo-item.model';
 import { IUserTodoResponse } from '../../../core/models/user-todo.model';
 import { IUserResponse } from '../../../core/models/user.model';
-import { AllTechAuthService } from '../../../core/services/all-tech-auth.service';
-import { DashboardService } from '../../../core/services/dashboard.service';
-import { TodoGroupService } from '../../../core/services/todo-group.service';
 import { TodoItemService } from '../../../core/services/todo-item.service';
-import { UserTodoService } from '../../../core/services/user-todo.service';
-import { UserService } from '../../../core/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { TodoGroupUpdateComponent } from './todo-group-update/todo-group-update.component';
 
 @Component({
   selector: 'app-todo-group',
@@ -28,13 +23,8 @@ export class TodoGroupComponent {
   newTitle: string = '';
 
   constructor(
-    private route: ActivatedRoute,
-    private dashboardService: DashboardService,
     private todoItemService: TodoItemService,
-    private todoGroupService: TodoGroupService,
-    private userTodoService: UserTodoService,
-    private userService: UserService,
-    private allTechAuthService: AllTechAuthService
+    private dialog: MatDialog
         ) {
   }
 
@@ -47,9 +37,20 @@ export class TodoGroupComponent {
   resetData() {
   }
 
-  editGroupName(todoGroup: ITodoGroupResponse) {
-    // popup dialog to edit group name
-    throw new Error('Method not implemented.');
+  openUpdateDialog(todoGroup: ITodoGroupResponse) {
+    const dialogRef = this.dialog.open(TodoGroupUpdateComponent, {
+      data: todoGroup,
+    });
+
+    dialogRef.afterClosed().subscribe((result: ITodoGroupResponse) => {
+      this.todoGroups = this.todoGroups.map((group) => {
+        if (group.id === result.id) {
+          return result;
+        }
+        return group;
+      });
+      this.selectedTodoGroup = result;
+    });
   }
 
   addTask(id: string) {
