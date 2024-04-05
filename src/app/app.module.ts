@@ -23,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { TodoGroupUpdateComponent } from './dashboards/todo-list-dashboard/todo-group/todo-group-update/todo-group-update.component';
+import { ChatDashboardComponent } from './dashboards/chat-dashboard/chat-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { TodoGroupUpdateComponent } from './dashboards/todo-list-dashboard/todo-
     PageNotFoundComponent,
     TodoGroupComponent,
     TodoGroupCreateComponent,
-    TodoGroupUpdateComponent
+    TodoGroupUpdateComponent,
+    ChatDashboardComponent
   ],
   imports: [
     BrowserModule,

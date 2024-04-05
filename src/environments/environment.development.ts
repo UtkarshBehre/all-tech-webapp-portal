@@ -1,4 +1,7 @@
 export const environment = {
+    chat_config: {
+        chat_hub_url: 'https://all-tech-webapp-service.azurewebsites.net/Chat'
+    },
     services_config: {
         endpoint_base_url: 'https://all-tech-webapp-service.azurewebsites.net/api',
         //endpoint_base_url: 'https://localhost:7152/api',

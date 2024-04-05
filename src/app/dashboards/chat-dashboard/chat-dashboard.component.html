@@ -1,0 +1,27 @@
+<h3>Welcome to chat</h3>
+<div class="container">
+    <div class="col-md-6">
+        @if (joinedChatRoom){
+            @for (chatMessage of chatMessages; track $index) {
+                <p>{{chatMessage.userName}}: {{chatMessage.message}}</p>
+            }
+            <mat-form-field>
+                <mat-label>{{chatDetails.userName}}</mat-label>
+                <input matInput (keydown.enter)="sendMessageClick()" [(ngModel)]="currentMessage">
+            </mat-form-field>
+            <button mat-raised-button (click)="sendMessageClick()">Send Message</button>
+        }
+        @else{
+            <mat-form-field>
+                <mat-label>Enter name</mat-label>
+                <input matInput [(ngModel)]="chatDetails.userName">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Enter chat room</mat-label>
+                <input matInput [(ngModel)]="chatDetails.chatRoom">
+            </mat-form-field>
+            <br>
+            <button mat-raised-button (click)="joinChatRoomClick()">Add Group</button>
+        }
+    </div>
+</div>

@@ -72,8 +72,6 @@ export class TodoListDashboardComponent {
 
     this.todoItems = dashboardData.todoItems;
     this.todoGroups = dashboardData.todoGroups;
-    console.log(this.todoItems);
-    console.log(this.todoGroups);
     this.selectedGroup = this.todoGroups[0];
     this.isLoading = false;
   }
