@@ -43,6 +43,7 @@ export class ChatDashboardComponent {
   async sendMessageClick() {
     if (this.currentMessage) {
       await this.conn.invoke('SendMessage', this.currentMessage);
+      this.currentMessage = '';
     }
   }
 }
