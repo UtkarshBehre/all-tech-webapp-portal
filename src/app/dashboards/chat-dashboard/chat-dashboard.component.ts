@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ChatDashboardComponent {
 
-  chatDetails: ChatDetails = { userName: '', chatRoom: '1'};
+  chatDetails: ChatDetails = { userName: '', chatRoom: ''};
   joinedChatRoom: boolean = false;
   conn!: HubConnection;
   currentMessage: string = '';
