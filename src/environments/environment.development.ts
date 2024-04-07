@@ -17,6 +17,7 @@ export const environment = {
             endpoint_create: '/todoGroup/create',
             endpoint_get_by_id: '/todoGroup/',
             endpoint_update: '/todoGroup/update/',
+            endpoint_share: '/todoGroup/share/',
             endpoint_delete: '/todoGroup/delete/'
         },
         userTodo: {

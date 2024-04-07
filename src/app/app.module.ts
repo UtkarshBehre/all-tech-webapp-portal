@@ -24,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { TodoGroupUpdateComponent } from './dashboards/todo-list-dashboard/todo-group/todo-group-update/todo-group-update.component';
 import { ChatDashboardComponent } from './dashboards/chat-dashboard/chat-dashboard.component';
+import { TodoGroupShareComponent } from './dashboards/todo-list-dashboard/todo-group/todo-group-share/todo-group-share.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ChatDashboardComponent } from './dashboards/chat-dashboard/chat-dashboa
     TodoGroupComponent,
     TodoGroupCreateComponent,
     TodoGroupUpdateComponent,
-    ChatDashboardComponent
+    ChatDashboardComponent,
+    TodoGroupShareComponent
   ],
   imports: [
     BrowserModule,

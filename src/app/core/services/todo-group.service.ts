@@ -26,6 +26,10 @@ export class TodoGroupService {
     return this.httpClient.put<ITodoGroupResponse>(`${this.config.endpoint_base_url}${this.config.todoGroup.endpoint_update}${id}`, todoGroupUpdateRequest);
   }
 
+  shareTodoGroup(id: string, email: string): Observable<ITodoGroupResponse> {
+    return this.httpClient.put<ITodoGroupResponse>(`${this.config.endpoint_base_url}${this.config.todoGroup.endpoint_share}id=${id}/email=${email}`, '');
+  }
+
   deleteTodoGroup(id: string): Observable<boolean> {
     return this.httpClient.delete<boolean>(`${this.config.endpoint_base_url}${this.config.todoGroup.endpoint_delete}${id}`);
   }
