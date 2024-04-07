@@ -3,7 +3,6 @@ export const environment = {
     endpoint_chat_hub_url: 'https://localhost:7152/Chat',
     todo_config: {
         endpoint_base_url: 'https://localhost:7152/api',
-        //endpoint_base_url: 'https://localhost:7152/api',
         todoItem: {
             endpoint_create: '/todoItem/create',
             endpoint_get_by_user: '/todoItem/all/userId=',
