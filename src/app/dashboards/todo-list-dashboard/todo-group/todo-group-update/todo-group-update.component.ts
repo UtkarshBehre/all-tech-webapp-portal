@@ -15,7 +15,7 @@ export class TodoGroupUpdateComponent {
   constructor(
     public dialogRef: MatDialogRef<TodoGroupUpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public todoGroup: ITodoGroupResponse,
-    private todoGroupService: TodoGroupService,
+    private todoGroupService: TodoGroupService
   ) {
     this.originalTodoGroup = { ...todoGroup };
   }

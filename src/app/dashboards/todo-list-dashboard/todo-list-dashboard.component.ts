@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ITodoItemResponse } from '../../core/models/todo-item.model';
 import { TodoItemService } from '../../core/services/todo-item.service';
 import { UserService } from '../../core/services/user.service';
@@ -12,13 +12,14 @@ import { ITodoGroupResponse } from '../../core/models/todo-group.model';
 import { DashboardService } from '../../core/services/dashboard.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoGroupCreateComponent } from './todo-group/todo-group-create/todo-group-create.component';
+import { TodoHubService } from '../../core/services/todo-hub.service';
 
 @Component({
   selector: 'app-todo-list-dashboard',
   templateUrl: './todo-list-dashboard.component.html',
   styleUrl: './todo-list-dashboard.component.scss'
 })
-export class TodoListDashboardComponent {
+export class TodoListDashboardComponent implements OnInit, OnDestroy {
 
   isLoggedIn = false;
   isLoading = false;
@@ -33,12 +34,10 @@ export class TodoListDashboardComponent {
 
   constructor(
     private dashboardService: DashboardService,
-    private todoItemService: TodoItemService,
-    private todoGroupService: TodoGroupService,
-    private userTodoService: UserTodoService,
     private userService: UserService,
     private allTechAuthService: AllTechAuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private todoHubService: TodoHubService,
         ) {
     this.newTodoGroup = {
       id: '',
@@ -48,7 +47,8 @@ export class TodoListDashboardComponent {
   }
 
   async ngOnInit() { 
-    this.allTechAuthService.socialUserSubject.subscribe((socialUser) => {
+    this.isLoading = true;
+    await this.allTechAuthService.socialUserSubject.subscribe((socialUser) => {
       this.isLoggedIn = socialUser !== null;
       if (this.isLoggedIn) {
         this.loadUserData();
@@ -56,8 +56,19 @@ export class TodoListDashboardComponent {
     });
     this.isLoggedIn = this.allTechAuthService.socialUser !== null
     if (this.isLoggedIn) {
-      this.loadUserData();
+      await this.todoHubService.JoinUserHub();
+      await this.loadUserData();
     }
+
+    this.todoHubService.notificationMessage.subscribe((message) => {
+      console.log('Notification message received: ', message);
+    });
+
+    this.isLoading = false;
+  }
+
+  async ngOnDestroy() {
+    this.todoHubService.stopConnection();
   }
 
   changeGroup(selectedGroup: ITodoGroupResponse) {
@@ -66,8 +77,7 @@ export class TodoListDashboardComponent {
 
   async loadUserData() {
     this.isLoading = true;
-
-    this.userResponse = await firstValueFrom(this.userService.getUser());
+    this.userResponse = await this.userService.getUser();
     let dashboardData = await firstValueFrom(this.dashboardService.GetUserDashboardData(this.userResponse.id));
 
     this.todoItems = dashboardData.todoItems;
@@ -87,25 +97,7 @@ export class TodoListDashboardComponent {
     });
   }
 
-  // addTask(id: string) {
-  //   let value = this.newTitle;
-  //   let request: ITodoItemCreateRequest = {
-  //     title: value,
-  //     groupId: id
-  //   };
-  //   this.todoItemService.createTodoItem(request).subscribe((response: ITodoItemResponse) => {
-  //     this.todoItems.unshift(response);
-  //   }, (error: any) => {
-  //     alert('Error creating todo item');
-  //   });
-  //   this.newTitle = '';
-  // }
-
-  // onDelete(id: string) {
-  //   this.todoItemService.deleteTodoItem(id).subscribe((response: boolean) => {
-  //     this.todoItems = this.todoItems.filter((item: ITodoItemResponse) => item.id !== id)
-  //   }, (error: any) => {
-  //     alert('Error deleting todo item');
-  //   });
-  // }
+  async refreshSectionClick() {
+    await this.loadUserData();
+  }
 }

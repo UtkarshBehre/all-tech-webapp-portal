@@ -24,7 +24,7 @@
     <div class="main-sidenav-content col-12">
 
         <app-todo-group [todoGroups]="todoGroups" [todoItems]="todoItems"
-            [selectedTodoGroup]="selectedGroup" class="col-6"></app-todo-group>
+            [selectedTodoGroup]="selectedGroup" (refreshSection)="refreshSectionClick()" class="col-6"></app-todo-group>
 
     </div>
 </mat-drawer-container>

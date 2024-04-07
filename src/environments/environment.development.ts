@@ -1,8 +1,7 @@
 export const environment = {
-    chat_config: {
-        chat_hub_url: 'https://all-tech-webapp-service.azurewebsites.net/Chat'
-    },
-    services_config: {
+    endpoint_todo_hub_url: 'https://all-tech-webapp-service.azurewebsites.net/Todo',
+    endpoint_chat_hub_url: 'https://all-tech-webapp-service.azurewebsites.net/Chat',
+    todo_config: {
         endpoint_base_url: 'https://all-tech-webapp-service.azurewebsites.net/api',
         //endpoint_base_url: 'https://localhost:7152/api',
         todoItem: {
@@ -30,6 +29,7 @@ export const environment = {
         user: {
             endpoint_create: '/user/create',
             endpoint_get: '/user',
+            endpoint_get_by_email: '/user/email/',
             endpoint_update: '/user/update/',
             endpoint_delete: '/user/delete/'
         },

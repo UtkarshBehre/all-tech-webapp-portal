@@ -11,7 +11,7 @@ export class DashboardService {
   config: any;
 
   constructor(private httpClient: HttpClient) { 
-    this.config = environment.services_config;
+    this.config = environment.todo_config;
   }
 
   public GetUserDashboardData(userId: string): Observable<IAllItemsResponse> {

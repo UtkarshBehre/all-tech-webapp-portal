@@ -11,7 +11,7 @@ export class UserTodoService {
   config: any;
 
   constructor(private httpClient: HttpClient) { 
-    this.config = environment.services_config;
+    this.config = environment.todo_config;
   }
 
   createUserTodo(userTodoCreateRequest: IUserTodoCreateRequest): Observable<IUserTodoResponse> {

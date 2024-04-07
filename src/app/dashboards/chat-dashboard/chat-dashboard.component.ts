@@ -19,7 +19,7 @@ export class ChatDashboardComponent {
   chatHubUrl: string;
 
   constructor() {
-    this.chatHubUrl = environment.chat_config.chat_hub_url;
+    this.chatHubUrl = environment.endpoint_chat_hub_url;
     this.conn = new HubConnectionBuilder()
     .withUrl(this.chatHubUrl, { skipNegotiation: true, transport: 1 })
     .configureLogging(LogLevel.Information)

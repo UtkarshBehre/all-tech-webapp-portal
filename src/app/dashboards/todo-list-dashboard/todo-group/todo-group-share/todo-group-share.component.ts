@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ITodoGroupResponse } from '../../../../core/models/todo-group.model';
 import { TodoGroupService } from '../../../../core/services/todo-group.service';
 import { TodoGroupUpdateComponent } from '../todo-group-update/todo-group-update.component';
+import { TodoHubService } from '../../../../core/services/todo-hub.service';
 
 @Component({
   selector: 'app-todo-group-share',
@@ -16,6 +17,7 @@ export class TodoGroupShareComponent {
     public dialogRef: MatDialogRef<TodoGroupUpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public todoGroup: ITodoGroupResponse,
     private todoGroupService: TodoGroupService,
+    private todoHubService: TodoHubService
   ) {
   }
 
@@ -29,5 +31,7 @@ export class TodoGroupShareComponent {
     }
 
     await this.todoGroupService.shareTodoGroup(this.todoGroup.id, this.sharedWithEmail);
+    await this.todoHubService.SendTodoGroupSharedMessage(this.todoGroup.name, this.sharedWithEmail);
+    this.dialogRef.close();
   }
 }

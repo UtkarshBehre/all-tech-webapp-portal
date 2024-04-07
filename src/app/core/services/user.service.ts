@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { IUserCreateRequest, IUserResponse, IUserUpdateRequest } from '../models/user.model';
 
@@ -8,20 +8,23 @@ import { IUserCreateRequest, IUserResponse, IUserUpdateRequest } from '../models
   providedIn: 'root'
 })
 export class UserService {
+
+  user!: IUserResponse;
+  
   config: any;
   constructor(private httpClient: HttpClient) { 
-    this.config = environment.services_config;
+    this.config = environment.todo_config;
   }
 
-  getUser(): Observable<IUserResponse> {
-    return this.httpClient.get<IUserResponse>(`${this.config.endpoint_base_url}${this.config.user.endpoint_get}`);
+  async getUser(): Promise<IUserResponse> {
+    
+    if (!this.user) {
+      this.user = await firstValueFrom(this.httpClient.get<IUserResponse>(`${this.config.endpoint_base_url}${this.config.user.endpoint_get}`));
+    }
+    return this.user;
   }
 
-  updateUser(id: string, userUpdateRequest: IUserUpdateRequest, ): Observable<IUserResponse> {
-    return this.httpClient.put<IUserResponse>(`${this.config.endpoint_base_url}${this.config.user.endpoint_update}${id}`, userUpdateRequest);
-  }
-
-  deleteUser(id: string): Observable<boolean> {
-    return this.httpClient.delete<boolean>(`${this.config.endpoint_base_url}${this.config.user.endpoint_delete}${id}`);
+  async getUserByEmail(email: string): Promise<IUserResponse> {
+    return await firstValueFrom(this.httpClient.get<IUserResponse>(`${this.config.endpoint_base_url}${this.config.user.endpoint_get_by_email}${email}`));
   }
 }

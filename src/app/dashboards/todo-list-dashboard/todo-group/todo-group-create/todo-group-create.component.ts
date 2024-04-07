@@ -34,7 +34,7 @@ export class TodoGroupCreateComponent {
 
     this.todoGroupService.createTodoGroup(this.todoGroup).subscribe((todoGroup) => {
       this.todoGroup = todoGroup;
-      this.userService.getUser().subscribe((user) => {
+      this.userService.getUser().then((user) => {
         this.userTodoService.getUserTodoById(user.id).subscribe((userTodo) => {
           userTodo.groupIds.push(todoGroup.id);
           this.userTodoService.updateUserTodo(userTodo.id, userTodo).subscribe(() => {

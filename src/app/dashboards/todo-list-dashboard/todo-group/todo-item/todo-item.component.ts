@@ -27,7 +27,7 @@ export class TodoItemComponent {
   }
 
   onInput(event: any) {
-    this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).subscribe((response: any) => {
+    this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).then((response: any) => {
       this.isEditable = false;
     }, (error: any) => {
       alert('Error updating todo item');
@@ -43,7 +43,7 @@ export class TodoItemComponent {
 
   onComplete() {
     this.todoItemResponse.isComplete = !this.todoItemResponse.isComplete;
-    this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).subscribe((response: ITodoItemResponse) => {
+    this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).then((response: ITodoItemResponse) => {
       this.todoItemResponse = response;
     }, (error: any) => {
       this.todoItemResponse.isComplete = !this.todoItemResponse.isComplete;
