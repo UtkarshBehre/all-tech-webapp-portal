@@ -1,8 +1,8 @@
 export const environment = {
-    endpoint_todo_hub_url: 'https://all-tech-webapp-service.azurewebsites.net/Todo',
-    endpoint_chat_hub_url: 'https://all-tech-webapp-service.azurewebsites.net/Chat',
+    endpoint_todo_hub_url: 'https://localhost:7152/Todo',
+    endpoint_chat_hub_url: 'https://localhost:7152/Chat',
     todo_config: {
-        endpoint_base_url: 'https://all-tech-webapp-service.azurewebsites.net/api',
+        endpoint_base_url: 'https://localhost:7152/api',
         //endpoint_base_url: 'https://localhost:7152/api',
         todoItem: {
             endpoint_create: '/todoItem/create',
