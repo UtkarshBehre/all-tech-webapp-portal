@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, firstValueFrom } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { ITodoItemCreateRequest, ITodoItemResponse, ITodoItemUpdateRequest } from '../models/todo-item.model';
 import { TodoHubService } from './todo-hub.service';
 import { TodoGroupService } from './todo-group.service';

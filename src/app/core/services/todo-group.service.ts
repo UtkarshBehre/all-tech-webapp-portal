@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, firstValueFrom, forkJoin } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { ITodoGroupCreateRequest, ITodoGroupResponse, ITodoGroupUpdateRequest } from '../models/todo-group.model';
 
 @Injectable({

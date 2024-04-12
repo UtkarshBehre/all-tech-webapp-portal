@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Subject } from 'rxjs';
 import { UserService } from './user.service';
 import { ITodoGroupResponse } from '../models/todo-group.model';
