@@ -24,6 +24,7 @@ export class TodoHubService {
       .build();
 
     this.conn.on('ReceiveTodoGroupUpdates', (message) => {
+      console.log(message);
       this.notificationMessage.next(message);
     });
 

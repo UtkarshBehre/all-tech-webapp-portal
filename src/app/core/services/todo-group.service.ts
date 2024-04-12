@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, firstValueFrom, forkJoin } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { ITodoGroupCreateRequest, ITodoGroupResponse, ITodoGroupUpdateRequest } from '../models/todo-group.model';
 
@@ -26,8 +26,9 @@ export class TodoGroupService {
     return this.httpClient.put<ITodoGroupResponse>(`${this.config.endpoint_base_url}${this.config.todoGroup.endpoint_update}${id}`, todoGroupUpdateRequest);
   }
 
-  shareTodoGroup(id: string, email: string): Observable<ITodoGroupResponse> {
-    return this.httpClient.put<ITodoGroupResponse>(`${this.config.endpoint_base_url}${this.config.todoGroup.endpoint_share}id=${id}&email=${email}`, '');
+  shareTodoGroup(id: string, email: string): Promise<any> {
+    console.log(`${this.config.endpoint_base_url}${this.config.todoGroup.endpoint_share}id=${id}&email=${email}`);
+    return firstValueFrom(this.httpClient.put<any>(`${this.config.endpoint_base_url}${this.config.todoGroup.endpoint_share}id=${id}&email=${email}`, {}));
   }
 
   deleteTodoGroup(id: string): Observable<boolean> {

@@ -36,9 +36,6 @@ export class TodoGroupComponent {
     await this.todoHubService.joinGroup(this.selectedTodoGroup.id);
   }
 
-   async loadUserData() {
-  }
-
   resetData() {
   }
 

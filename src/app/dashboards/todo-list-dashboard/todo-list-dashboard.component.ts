@@ -13,6 +13,8 @@ import { DashboardService } from '../../core/services/dashboard.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoGroupCreateComponent } from './todo-group/todo-group-create/todo-group-create.component';
 import { TodoHubService } from '../../core/services/todo-hub.service';
+import { SocialUser } from '@abacritt/angularx-social-login';
+import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-todo-list-dashboard',
@@ -38,6 +40,7 @@ export class TodoListDashboardComponent implements OnInit, OnDestroy {
     private allTechAuthService: AllTechAuthService,
     private dialog: MatDialog,
     private todoHubService: TodoHubService,
+    private snackBarService: SnackbarService
         ) {
     this.newTodoGroup = {
       id: '',
@@ -48,23 +51,27 @@ export class TodoListDashboardComponent implements OnInit, OnDestroy {
 
   async ngOnInit() { 
     this.isLoading = true;
-    await this.allTechAuthService.socialUserSubject.subscribe((socialUser) => {
-      this.isLoggedIn = socialUser !== null;
-      if (this.isLoggedIn) {
-        this.loadUserData();
-      }
-    });
-    this.isLoggedIn = this.allTechAuthService.socialUser !== null
-    if (this.isLoggedIn) {
+    this.allTechAuthService.socialUserSubject.subscribe(async (socialUser) => {
+      this.isLoading = true;
       await this.todoHubService.JoinUserHub();
-      await this.loadUserData();
-    }
+      await this.initialLoading(socialUser);
+      this.isLoading = false;
+    });
+    await this.initialLoading(this.allTechAuthService.socialUser);
 
     this.todoHubService.notificationMessage.subscribe((message) => {
+      this.snackBarService.openSnackBar(message);
       console.log('Notification message received: ', message);
     });
 
     this.isLoading = false;
+  }
+
+  async initialLoading(socialUser: SocialUser | null) {
+    this.isLoggedIn = socialUser !== null;
+    if (this.isLoggedIn) {
+      await this.loadUserData();
+    }
   }
 
   async ngOnDestroy() {
@@ -76,14 +83,12 @@ export class TodoListDashboardComponent implements OnInit, OnDestroy {
   }
 
   async loadUserData() {
-    this.isLoading = true;
     this.userResponse = await this.userService.getUser();
     let dashboardData = await firstValueFrom(this.dashboardService.GetUserDashboardData(this.userResponse.id));
-
+    console.log(this.isLoading);
     this.todoItems = dashboardData.todoItems;
     this.todoGroups = dashboardData.todoGroups;
     this.selectedGroup = this.todoGroups[0];
-    this.isLoading = false;
   }
 
   openCreateDialog() {
@@ -98,6 +103,8 @@ export class TodoListDashboardComponent implements OnInit, OnDestroy {
   }
 
   async refreshSectionClick() {
+    this.isLoading = true;
     await this.loadUserData();
+    this.isLoading = false;
   }
 }
