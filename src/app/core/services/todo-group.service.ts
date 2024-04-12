@@ -27,7 +27,6 @@ export class TodoGroupService {
   }
 
   shareTodoGroup(id: string, email: string): Promise<any> {
-    console.log(`${this.config.endpoint_base_url}${this.config.todoGroup.endpoint_share}id=${id}&email=${email}`);
     return firstValueFrom(this.httpClient.put<any>(`${this.config.endpoint_base_url}${this.config.todoGroup.endpoint_share}id=${id}&email=${email}`, {}));
   }
 

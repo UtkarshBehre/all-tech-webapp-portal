@@ -31,7 +31,6 @@ export class TodoGroupShareComponent {
     }
 
     let s = await this.todoGroupService.shareTodoGroup(this.todoGroup.id, this.sharedWithEmail);
-    console.log(`s: ${s}`);
     await this.todoHubService.SendTodoGroupSharedMessage(this.todoGroup.name, this.sharedWithEmail);
     this.dialogRef.close();
   }

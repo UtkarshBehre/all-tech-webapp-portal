@@ -61,7 +61,6 @@ export class TodoListDashboardComponent implements OnInit, OnDestroy {
 
     this.todoHubService.notificationMessage.subscribe((message) => {
       this.snackBarService.openSnackBar(message);
-      console.log('Notification message received: ', message);
     });
 
     this.isLoading = false;
@@ -85,7 +84,6 @@ export class TodoListDashboardComponent implements OnInit, OnDestroy {
   async loadUserData() {
     this.userResponse = await this.userService.getUser();
     let dashboardData = await firstValueFrom(this.dashboardService.GetUserDashboardData(this.userResponse.id));
-    console.log(this.isLoading);
     this.todoItems = dashboardData.todoItems;
     this.todoGroups = dashboardData.todoGroups;
     this.selectedGroup = this.todoGroups[0];
