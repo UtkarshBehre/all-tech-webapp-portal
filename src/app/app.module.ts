@@ -25,7 +25,6 @@ import { MatInputModule } from '@angular/material/input';
 import { TodoGroupUpdateComponent } from './dashboards/todo-list-dashboard/todo-group/todo-group-update/todo-group-update.component';
 import { ChatDashboardComponent } from './dashboards/chat-dashboard/chat-dashboard.component';
 import { TodoGroupShareComponent } from './dashboards/todo-list-dashboard/todo-group/todo-group-share/todo-group-share.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
