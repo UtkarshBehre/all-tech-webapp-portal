@@ -27,12 +27,13 @@ export class TodoItemComponent {
   }
 
   onInput(event: any) {
-    this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).then((response: any) => {
+    this.todoItemService.updateTodoItem(this.todoItemResponse.id, this.todoItemResponse).then((response: ITodoItemResponse) => {
       this.isEditable = false;
+      this.todoItemResponse = response;
+      this.todoItemResponseOriginal = { ...response };
     }, (error: any) => {
       alert('Error updating todo item');
     });
-    this.todoItemResponseOriginal = { ...this.todoItemResponse };
     event.target.blur();
   }
 
